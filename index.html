@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Quiz</title>
-    <link rel="stylesheet" href="/Code_Quiz/assets/css/reset.css" />
+    <link rel="stylesheet" href="./assets/css/reset.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
@@ -13,13 +13,13 @@
 <body>
     <main>
         <header>
-            <div class="container">
+            <div class="container-fliud">
                 <div class="row m-3">
                   <div class="col-md-10 h5">
-                      <a href="/Code_Quiz/highscore.html">High Scores</a>
+                      <a href="highscore.html">Highscores</a>
                   </div>
                   <div class="col-md-2 h5 float-end">
-                      Time Remaining: <span id="timer">0</span>                 
+                      Time: <span id="timer">0</span>                 
                   </div>
                 </div>
         </header>
@@ -30,9 +30,11 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <p>Try to answer the following code-related questions within the time limit. Keep in mind
+                        <p id="quizInfo">Try to answer the following code-related questions within the time limit. Keep in mind
                             that incorrect answers will penalize your score/time by ten seconds!!      
                         </p>
+                        <div id="question-choice"></div>
+                        <div id="answer-check"></div>
                     </div>
                 </div>
                 <div class="row">
@@ -45,7 +47,7 @@
 
         </section>
     </main>
-
+<script src="./assets/js/script.js"></script>
 </body>
 
 </html>
