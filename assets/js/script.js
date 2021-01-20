@@ -33,12 +33,15 @@ var highscores = {
 
 var timeLeft = 75;
 var currentQuestion = 0;
+var score = 0;
 var startQuiz = document.querySelector("#start-button");
 var quizText = document.querySelector("#quizInfo");
 var quizChoices = document.querySelector("#question-choice");
 var answerChoice = document.querySelector("#answer-check");
 var timerEl = document.querySelector("#timer");
 var highScoreList = document.querySelector("#highscore-list");
+var backButton = document.querySelector("#go-back");
+var clearScores = document.querySelector("#clear-scores")
 
 function nextQuestion(answerText){    
     quizChoices.innerHTML = "";    
@@ -56,7 +59,7 @@ function nextQuestion(answerText){
             if(currentQuestion < questionBank.length) {
                 nextQuestion(e.target.textContent);
             } else {
-                location.href = 'highscore.html'
+                location.href = 'highscore.html'                
             }
         });
         choiceButton.textContent = questionBank[currentQuestion].choices[i];
@@ -71,7 +74,7 @@ function nextQuestion(answerText){
 startQuiz.addEventListener("click", function(){
     startQuiz.remove();
     nextQuestion();
-    startTimer(); 
+    startTimer();     
 })
 
 function checkAnswer(answerText){
@@ -79,7 +82,7 @@ function checkAnswer(answerText){
     console.log(questionBank[currentQuestion-1].answer)    
 
     if (questionBank[currentQuestion-1].answer === answerText){
-        answerChoice.textContent = "CORRECT!"
+        answerChoice.textContent = "CORRECT!"        
     }else{
         answerChoice.textContent = "WRONG!!"
         if (timeLeft <= 15){
@@ -97,11 +100,26 @@ function startTimer(){
         timeLeft--;
         if (timeLeft === 0){
             clearInterval(timerInterval);
-            document.getElementById("timer").innerHTML = "Done"
+            timerEl.innerHTML = "Done"
         }
         
     }, 1000)
         
+}
+
+function quizScore(){
+    if (timeLeft >= 0){
+        score = timeLeft ;
+        var scorePara = document.createElement("p");
+        scorePara.textContent = "Your final score is: " + score;
+        highScoreList.prepend(scorePara);
+    }
+
+
+}
+
+function getUserName(){
+    
 }
   
     
