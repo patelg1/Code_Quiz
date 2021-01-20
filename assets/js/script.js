@@ -47,12 +47,15 @@ function nextQuestion(answerText){
     quizChoices.innerHTML = "";    
     quizText.textContent = questionBank[currentQuestion].question; 
     var quizAnswers = document.createElement("ul");
+    document.getElementById
     quizAnswers.setAttribute("class", "quiz-answers");   
 
     for (i = 0; i < questionBank[currentQuestion].choices.length; i++){
         var answerList = document.createElement("li");
         var choiceButton = document.createElement("button");
         choiceButton.setAttribute("class", "quiz-answer");
+        choiceButton.style.height = "50px";
+        choiceButton.style.width = "200px";
         
         
         choiceButton.addEventListener("click", function(e){
