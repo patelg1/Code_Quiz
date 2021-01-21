@@ -27,7 +27,7 @@ var questionBank = [
     }
 ];
 //highscore object holding array of initals and scores
-var highscores = {
+var highScores = {
     initials: [],
     scores: [],
 }
@@ -133,9 +133,12 @@ function endQuiz(){
     labelEl.textContent = "Enter your initials: ";
     var inputEl = document.createElement("input");
     inputEl.setAttribute("type", "text");
-    var submitEl = document.createElement("input");
-    submitEl.setAttribute("type", "submit");
-    submitEl.setAttribute("id", "submit");
+    var submitEl = document.createElement("button");
+    submitEl.setAttribute("class", "submit-score");
+    submitEl.style.height = "50px";
+    submitEl.style.width = "150px";
+    submitEl.style.marginTop = "10px"
+    submitEl.textContent = "Submit"
     labelEl.appendChild(inputEl);
     formEl.appendChild(labelEl);
     formEl.appendChild(submitEl);
@@ -149,12 +152,63 @@ function endQuiz(){
         event,preventDefault();
         if (inputEl.value === ""){
             alert("Please enter initials!");
-        }else{
-            window.location = "highscore.html";
         }
-    });
-    
+        saveScore(inputEl.value, timeLeft);
+        window.location = "highscore.html"
+        })
+    };
+//Function to get scores and initials from local storage
+function getScores(){
+    var savedScore = localStorage.getItem("highScores");
+
+    if (savedScore != null){
+        var storedScores = JSON.parse(savedScore);
+        highScores.initials = storedScores.initials;
+        highScores.scores = storedScores.scores;
+    }else{
+        highScores.initials = [];
+        highScores.scores = [];
+    }
 }
+//Function to show scores and initials on web page
+function showScores(){
+    highScoreList.innerHTML = "";
+
+    getScores();
+
+    for(var i = 0; i < highScores.initials.length; i++){
+        var listEl = document.createElement("li");
+        var paraEl = document.createElement("p");
+        paraEl.setAttribute("class", "highscore");
+        paraEl.textContent = (i + 1) + ". " + highScores.initials[i] + "- " + highScores.scores[i];
+
+        listEl.appendChild(paraEl);
+        highScoreList.appendChild(listEl);
+
+    }
+}
+// Function to save score and initials
+function saveScore(newInitials, newScore){
+    getScores();
+
+    highScores.initials.push(newInitials);
+    highScores.scores.push(newScore);
+
+    var highScore = JSON.stringify(highScores);
+    localStorage.setItem("highscores", highScore);
+}
+
+//Function to clear score and initials data
+function clearScores(){
+    localStorage.removeItem("highscores");
+    showScores();
+}
+    
+if (highScoreList !== null){
+    showScores();
+}
+    
+
   
     
         
