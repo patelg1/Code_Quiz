@@ -43,6 +43,7 @@ var timerEl = document.querySelector("#timer");
 var highScoreList = document.querySelector("#highscore-list");
 var backButton = document.querySelector("#go-back");
 var clearScores = document.querySelector("#clear-scores")
+var quizEl = document.querySelector(".quiz");
 //Function to change page to show question and choices and loop through the array
 function nextQuestion(answerText){    
     quizChoices.innerHTML = "";    
@@ -65,7 +66,7 @@ function nextQuestion(answerText){
                 nextQuestion(e.target.textContent);
             } else {
                 
-                location.href = 'highscore.html'                
+                endQuiz();                               
             }
         });
         choiceButton.textContent = questionBank[currentQuestion].choices[i];
@@ -106,7 +107,6 @@ function startTimer(){
         if (timeLeft === 0){
             clearInterval(timerInterval);
             timerEl.innerHTML = "Done"
-            endQuiz();
         }
         
     }, 1000)
@@ -115,8 +115,11 @@ function startTimer(){
 
 //Function to end quiz and show score and add initials and submit button
 function endQuiz(){
+    
+    console.log("end of quiz");
     var quizDone = document.createElement("div");
     quizDone.setAttribute("class", "quiz-done");
+    quizChoices.innerHTML = "";
 
     var doneMsg = document.createElement("h1");
     doneMsg.textContent = "All Done!";
@@ -140,14 +143,15 @@ function endQuiz(){
     quizDone.appendChild(doneMsg);
     quizDone.appendChild(score);
     quizDone.appendChild(formEl);
-    quizText.replaceChild(quizDone);
+    quizEl.replaceChild(quizDone, quizText);
 
     submitEl.addEventListener("click", function(event){
         event,preventDefault();
         if (inputEl.value === ""){
             alert("Please enter initials!");
+        }else{
+            window.location = "highscore.html";
         }
-        window.location = "highscore.html";
     });
     
 }
