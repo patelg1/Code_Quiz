@@ -1,21 +1,21 @@
+/*Add color, weight, size, and align the h1 tag*/
 h1 {
     text-align: center;
     font-size: 50px;
     font-weight: bolder;
     color: blue;
 }
-
+/*Add background to buton and color to text in button*/
 button {
     background-color: blue;
-    color: white; 
-    
+    color: white;  
        
 }
-
+/*Add font size to the Quiz instructions*/
 #quizInfo {
     font-size: 20px;
 }
-
+/*Remove bullets from list*/
 li {
     list-style-type: none;       
 

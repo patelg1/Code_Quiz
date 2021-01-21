@@ -1,3 +1,4 @@
+// Array of question object with question, choices, and answer
 var questionBank = [
     {
         question: "Inside which HTML element do we put the JavaScript?",
@@ -25,12 +26,12 @@ var questionBank = [
         answer: "alert('Hello World');"
     }
 ];
-
+//highscore object holding array of initals and scores
 var highscores = {
     initials: [],
     scores: [],
 }
-
+// Initial variable declartion
 var timeLeft = 75;
 var currentQuestion = 0;
 var score;
@@ -42,7 +43,7 @@ var timerEl = document.querySelector("#timer");
 var highScoreList = document.querySelector("#highscore-list");
 var backButton = document.querySelector("#go-back");
 var clearScores = document.querySelector("#clear-scores")
-
+//Function to change page to show question and choices and loop through the array
 function nextQuestion(answerText){    
     quizChoices.innerHTML = "";    
     quizText.textContent = questionBank[currentQuestion].question; 
@@ -58,7 +59,7 @@ function nextQuestion(answerText){
         choiceButton.style.width = "200px";
         choiceButton.style.marginBottom = "10px";
         
-        
+        //Click event for choices
         choiceButton.addEventListener("click", function(e){
             if(currentQuestion < questionBank.length) {
                 nextQuestion(e.target.textContent);
@@ -76,6 +77,7 @@ function nextQuestion(answerText){
     }    
     currentQuestion++;
 }
+//Function to begin quiz and timer
 startQuiz.addEventListener("click", function(){
     startQuiz.remove();
     nextQuestion();
@@ -95,7 +97,8 @@ function checkAnswer(answerText){
         }
     }   
     
-}    
+} 
+// Function to run timer and deduct 15 sec for each wrong answer   
 function startTimer(){
     var timerInterval = setInterval(function(){
         document.getElementById("timer").innerHTML = timeLeft;
@@ -110,7 +113,7 @@ function startTimer(){
         
 }
 
-
+//Function to end quiz and show score and add initials and submit button
 function endQuiz(){
     var quizDone = document.createElement("div");
     quizDone.setAttribute("class", "quiz-done");
