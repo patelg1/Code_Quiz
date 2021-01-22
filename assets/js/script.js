@@ -1,3 +1,5 @@
+var dataFromStorage = JSON.parse(localStorage.getItem('highscores'))|| [];
+
 // Array of question object with question, choices, and answer
 var questionBank = [
     {
@@ -85,7 +87,7 @@ startQuiz.addEventListener("click", function(){
     startTimer();
         
 })
-
+//Function to check if answer is correct
 function checkAnswer(answerText){
     if (questionBank[currentQuestion-1].answer === answerText){
         answerChoice.textContent = "CORRECT!"        
@@ -127,7 +129,7 @@ function endQuiz(){
     score = document.createElement("p");
     score.textContent = "Your score is: " + timeLeft;
 
-    var formEl = document.createElement("form");
+    var formEl = document.createElement("div");
     formEl.setAttribute("class", "quiz-form");
     var labelEl = document.createElement("label");
     labelEl.textContent = "Enter your initials: ";
@@ -149,12 +151,13 @@ function endQuiz(){
     quizEl.replaceChild(quizDone, quizText);
 
     submitEl.addEventListener("click", function(event){
-        event,preventDefault();
+        
         if (inputEl.value === ""){
             alert("Please enter initials!");
+        } else {
+            saveScore(inputEl.value, timeLeft);
+            window.location = "highscore.html"
         }
-        saveScore(inputEl.value, timeLeft);
-        window.location = "highscore.html"
         })
     };
 //Function to get scores and initials from local storage
@@ -172,15 +175,13 @@ function getScores(){
 }
 //Function to show scores and initials on web page
 function showScores(){
-    highScoreList.innerHTML = "";
+    highScoreList.innerHTML = "";   
 
-    getScores();
-
-    for(var i = 0; i < highScores.initials.length; i++){
+    for(var i = 0; i < dataFromStorage.length; i++){
         var listEl = document.createElement("li");
         var paraEl = document.createElement("p");
         paraEl.setAttribute("class", "highscore");
-        paraEl.textContent = (i + 1) + ". " + highScores.initials[i] + "- " + highScores.scores[i];
+        paraEl.textContent = (i + 1) + ". " + dataFromStorage[i].initials + "- " + dataFromStorage[i].score;
 
         listEl.appendChild(paraEl);
         highScoreList.appendChild(listEl);
@@ -189,24 +190,20 @@ function showScores(){
 }
 // Function to save score and initials
 function saveScore(newInitials, newScore){
-    getScores();
+    
+    var newRecord = {
+        initials: newInitials,
+        score: newScore
+    }
 
-    highScores.initials.push(newInitials);
-    highScores.scores.push(newScore);
+    dataFromStorage.push(newRecord);
+    
+    var highScore = JSON.stringify(dataFromStorage);
 
-    var highScore = JSON.stringify(highScores);
     localStorage.setItem("highscores", highScore);
 }
 
-//Function to clear score and initials data
-function clearScores(){
-    localStorage.removeItem("highscores");
-    showScores();
-}
-    
-if (highScoreList !== null){
-    showScores();
-}
+
     
 
   
