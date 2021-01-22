@@ -20,5 +20,31 @@ li {
     list-style-type: none;       
 
 }
+/*Added font weight and size*/
+h2 {
+    font-weight: bolder;
+    font-size: 50px;
+    
+}
+
+header, #text-center {
+    background-color: lightgrey;
+}
+
+#highscore-list {
+    font-size: 25px;
+    color: blue;
+    font-weight: bold;
+}
+
+#timer {
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+#link {
+    font-size: 25px;
+    font-weight: bolder;
+}
 
 
