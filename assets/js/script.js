@@ -1,4 +1,5 @@
 var dataFromStorage = JSON.parse(localStorage.getItem('highscores'))|| [];
+var timerInterval;
 
 // Array of question object with question, choices, and answer
 var questionBank = [
@@ -34,7 +35,7 @@ var highScores = {
     scores: [],
 }
 // Initial variable declartion
-var timeLeft = 75;
+var timeLeft = 20;
 var currentQuestion = 0;
 var score;
 var startQuiz = document.querySelector("#start-button");
@@ -95,28 +96,40 @@ function checkAnswer(answerText){
         answerChoice.textContent = "WRONG!!"
         if (timeLeft <= 15){
             timeLeft = 0;
+            timerEl.innerHTML = "Done";
+            endQuiz();
         }else{
             timeLeft -= 15;
+            
         }
-    }   
+    }
+     
     
 } 
 // Function to run timer and deduct 15 sec for each wrong answer   
 function startTimer(){
-    var timerInterval = setInterval(function(){
-        document.getElementById("timer").innerHTML = timeLeft;
+    timerInterval = setInterval(function(){
+        // document.getElementById("timer").innerHTML = timeLeft;
         timeLeft--;
-        if (timeLeft === 0){
-            clearInterval(timerInterval);
-            timerEl.innerHTML = "Done"
+        if (timeLeft <= 0){
+            timeLeft = 0;
+            timerEl.innerHTML = "Done";
+            endQuiz()
         }
+
+        document.getElementById("timer").innerHTML = timeLeft;
         
     }, 1000)
         
 }
+// Function to stop timer
+function stopTimer(){
+    clearInterval(timerInterval);
+}
 
 //Function to end quiz and show score and add initials and submit button
 function endQuiz(){
+    stopTimer();
     
     console.log("end of quiz");
     var quizDone = document.createElement("div");
@@ -159,6 +172,7 @@ function endQuiz(){
             window.location = "highscore.html"
         }
         })
+    
     };
 //Function to get scores and initials from local storage
 function getScores(){
