@@ -47,4 +47,8 @@ header, #text-center {
     font-weight: bolder;
 }
 
+section {
+    margin: 100px;
+}
+
 
